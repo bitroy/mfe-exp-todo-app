@@ -1,4 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Paper from "@mui/material/Paper";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -6,54 +16,74 @@ const TodoList = () => {
 
   const addTodo = () => {
     if (newTodo.trim()) {
-      setTodos([...todos, newTodo]);
+      setTodos((prev) => [...prev, newTodo]);
       setNewTodo("");
     }
   };
 
   const removeTodo = (index) => {
-    setTodos(todos.filter((_, i) => i !== index));
+    setTodos((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="w-full p-4">
-      <h1 className="text-2xl font-semibold text-center text-gray-800 mb-4">Todo List</h1>
+    <Box sx={{ width: "100%", p: 2 }}>
+      <Typography
+        variant="h5"
+        component="h1"
+        align="center"
+        color="text.primary"
+        fontWeight="bold"
+        gutterBottom
+      >
+        Todo List
+      </Typography>
 
-      {/* Input Section */}
-      <div className="flex mb-4">
-        <input
-          type="text"
+      <Box sx={{ display: "flex", mb: 2 }}>
+        <TextField
+          fullWidth
+          variant="outlined"
+          size="small"
+          placeholder="Add a new task"
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
-          className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Add a new task"
         />
-        <button
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ ml: 2 }}
           onClick={addTodo}
-          className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none"
         >
           Add
-        </button>
-      </div>
+        </Button>
+      </Box>
 
-      {/* Todo List */}
-      <ul className="space-y-2">
+      <List sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
         {todos.map((todo, index) => (
-          <li
+          <Paper
             key={index}
-            className="flex justify-between items-center p-2 border border-gray-200 rounded-md shadow-sm bg-gray-50"
+            variant="outlined"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              p: 1,
+              bgcolor: "grey.50",
+            }}
           >
-            <span className="text-gray-700">{todo}</span>
-            <button
+            <ListItem disableGutters sx={{ flex: 1 }}>
+              <ListItemText primary={todo} primaryTypographyProps={{ color: "text.primary" }} />
+            </ListItem>
+            <IconButton
+              edge="end"
+              color="error"
               onClick={() => removeTodo(index)}
-              className="text-red-500 hover:text-red-700 focus:outline-none"
             >
-              Delete
-            </button>
-          </li>
+              <DeleteIcon />
+            </IconButton>
+          </Paper>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 
