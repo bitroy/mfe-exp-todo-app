@@ -17,5 +17,5 @@ const App = () => {
   ) 
 };
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("todo-app-root"));
 root.render(<App />);
