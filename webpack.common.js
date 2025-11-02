@@ -36,6 +36,10 @@ module.exports = {
 					singleton: true,
 					requiredVersion: pkg.dependencies["react-dom"],
 				},
+				"@mfe/shared-eventbus": {
+					singleton: true,
+					requiredVersion: pkg.dependencies["@mfe/shared-eventbus"],
+				},
 			},
 		}),
 		new HtmlWebpackPlugin({
